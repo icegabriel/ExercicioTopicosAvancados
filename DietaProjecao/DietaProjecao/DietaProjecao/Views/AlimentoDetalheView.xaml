@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:DietaProjecao.Converters"
+             mc:Ignorable="d"
+             x:Class="DietaProjecao.Views.AlimentoDetalheView"
+             Title="{Binding Alimento.description}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ConverterBool  x:Key="boolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                
+                <Label Text="Calorias" Margin="0,15,0,0" HorizontalOptions="Center" FontSize="Large" FontAttributes="Bold"/>
+            
+                <Label Text="{Binding Calorias}" Margin="0,0,0,30" HorizontalOptions="Center" FontSize="35" FontAttributes="Bold"/>
+
+                <ActivityIndicator IsRunning="True"
+                                   IsVisible="{Binding IsAdicionandoAlimento}"/>
+                <Button Text="Adicionar a Dieta"
+                        IsVisible="{Binding IsAdicionandoAlimento, Converter={StaticResource boolConverter}}"
+                        Command="{Binding AddAlimetoCommand}"/>
+
+                <TableView Intent="Data">
+                    <TableRoot>
+                        <TableSection Title="Tabela Nutricional">
+
+                            <TextCell Text="{Binding Alimento.base_qty, StringFormat='Porção: {0}g'}"/>
+                            <TextCell Text="{Binding Alimento.attributes.humidity.qty, StringFormat='Umidade: {0}%'}"/>
+                            <TextCell Text="{Binding Alimento.attributes.protein.qty, StringFormat='Proteina: {0}g'}"/>
+                            <TextCell Text="{Binding Alimento.attributes.lipid.qty, StringFormat='Lipídico: {0}g'}"/>
+                            <TextCell Text="{Binding Alimento.attributes.cholesterol.qty, StringFormat='Colesterol: {0}mg'}"/>
+                            <TextCell Text="{Binding Alimento.attributes.carbohydrate.qty, StringFormat='Carboidrato: {0}g'}"/>
+                            <TextCell Text="{Binding Alimento.attributes.fiber.qty, StringFormat='Fibra: {0}g'}"/>
+                            <TextCell Text="{Binding Alimento.attributes.ashes.qty, StringFormat='Cinzas: {0}g'}"/>
+                            <TextCell Text="{Binding Alimento.attributes.calcium.qty, StringFormat='Cálcio: {0}mg'}"/>
+                            <TextCell Text="{Binding Alimento.attributes.magnesium.qty, StringFormat='Magnésio: {0}mg'}"/>
+                            <TextCell Text="{Binding Alimento.attributes.phosphorus.qty, StringFormat='Fósforo: {0}mg'}"/>
+                            <TextCell Text="{Binding Alimento.attributes.iron.qty, StringFormat='Ferro: {0}mg'}"/>
+
+                        </TableSection>
+                    </TableRoot>
+                </TableView>
+            
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

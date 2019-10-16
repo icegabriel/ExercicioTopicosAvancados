@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DietaProjecao.Views.Home.DietaView"
+             Title="Dieta"
+             Icon="dieta.png">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="toolBarButton" Text="LOGAR-SE" Clicked="toolBarButton_Clicked" Command="{Binding ToolbarButtonCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout Margin="15, 15, 15, 15">
+
+            <StackLayout IsVisible="{Binding UsuarioCanLogin}">
+                <Label Text="PARA VISUALIZAR SUA DIETA FAÇA LOGIN!"
+                       HorizontalOptions="Center"/>
+            </StackLayout>
+            
+            <ScrollView>
+                <StackLayout IsVisible="{Binding UsuarioIsLogado}">
+                
+                    <Label Text="Total Calorias Consumidas"
+                           Margin="0,15,0,0"
+                           HorizontalOptions="Center"
+                           FontSize="Large"
+                           FontAttributes="Bold"/>
+
+                    <Label x:Name="labelCaloriasTotais"
+                           Text="{Binding CaloriasTotaisText}"
+                           TextColor="{Binding CaloriasTotaisColor}"
+                           Margin="0,0,0,30"
+                           HorizontalOptions="Center"
+                           FontSize="35"
+                           FontAttributes="Bold"/>
+
+                    <StackLayout IsVisible="{Binding IsChagingLimite}">
+                        
+                        <Entry Text="{Binding LimeteCaloriasEntry}"/>
+
+                        <Button Text="APLICAR"
+                                Command="{Binding AplicarLimiteCommand}"/>
+
+                    </StackLayout>
+
+                    <Button Text="MUDAR LIMITE DE CALORIAS"
+                            Command="{Binding SetCaloriasCommand}"/>
+
+                    <Label Text="Alimentos Consumidos"/>
+                    <ListView x:Name="alimentosListView"
+                              ItemsSource="{Binding AlimentosUsuario}"
+                              IsRefreshing="{Binding IsRefreshing}"
+                              SelectedItem="{Binding SelectedAlimento}">
+                    
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.View>
+
+                                        <Label Text="{Binding description}"
+                                           Margin="15,0,15,0"
+                                           VerticalOptions="Center"
+                                           FontAttributes="Bold"/>
+
+                                    </ViewCell.View>
+                                    <ViewCell.ContextActions>
+
+                                        <MenuItem Text="DELETAR"
+                                                  Command="{Binding Path=BindingContext.DeletarCommand, Source={x:Reference Name=alimentosListView}}"
+                                                  CommandParameter="{Binding .}"/>
+
+                                    </ViewCell.ContextActions>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    
+                    </ListView>
+                
+                </StackLayout>
+            </ScrollView>
+
+        </StackLayout>
+    </ContentPage.Content>
+    
+</ContentPage>

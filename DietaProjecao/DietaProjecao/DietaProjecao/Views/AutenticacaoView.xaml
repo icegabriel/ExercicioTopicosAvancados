@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:converters="clr-namespace:DietaProjecao.Converters"
+            mc:Ignorable="d"
+            x:Class="DietaProjecao.Views.AutenticacaoView"
+            Title="Autenticação">
+
+    <TabbedPage.Resources>
+        <ResourceDictionary>
+            <converters:ConverterBool  x:Key="boolConverter" />
+        </ResourceDictionary>
+    </TabbedPage.Resources>
+
+    <TabbedPage.Children>
+
+        <ContentPage Title="Login">
+
+            <StackLayout VerticalOptions="CenterAndExpand" Margin="15, 0, 15, 0">
+
+                <Image Source="title.png"/>
+
+                <Label Text="Usuario: "/>
+                <Entry x:Name="usernameEntry"
+                       Text="{Binding LogUsuario}"
+                       Placeholder="joaojexson"/>
+
+                <Label Text="Senha: "/>
+                <Entry x:Name="senhaEntry"
+                       Text="{Binding LogSenha}"
+                       Placeholder="********"
+                       IsPassword="True"/>
+
+                <ActivityIndicator
+                    IsVisible="{Binding IsCarregando}"
+                    IsRunning="{Binding IsCarregando}"/>
+
+                <Button Text="Logar"
+                        x:Name="logarBtn"
+                        IsVisible="{Binding IsCarregando, Converter={StaticResource boolConverter}}"
+                        Command="{Binding LoginCommand}"/>
+
+
+                <Button Text="Registrar"
+                        x:Name="registrarBtn"
+                        Command="{Binding RegistrarAtalhoCommand}"/>
+
+            </StackLayout>
+
+        </ContentPage>
+
+        <ContentPage Title="Registrar">
+            <ScrollView>
+                
+                <StackLayout VerticalOptions="CenterAndExpand" Margin="15, 0, 15, 0">
+                    
+                    <Image Source="title.png"/>
+
+                    <Label Text="Usuario: "/>
+                    <Entry x:Name="regUsernameEntry"
+                       Text="{Binding RegUsername}"
+                       Placeholder="joaojexson"/>
+
+                    <Label Text="Email: "/>
+                    <Entry x:Name="regEmailEntry"
+                       Text="{Binding RegEmail}"
+                       Placeholder="joaojexson@gmail.com"/>
+
+                    <Label Text="Senha: "/>
+                    <Entry x:Name="regSenhaEntry"
+                       Text="{Binding RegSenha}"
+                       Placeholder="********"
+                       IsPassword="True"/>
+
+                    <Label Text="Confirmar Senha: "/>
+                    <Entry x:Name="regSenhaConfirmEntry"
+                       Text="{Binding RegSenhaConfr}"
+                       Placeholder="********"
+                       IsPassword="True"/>
+
+                    <Label Text="Limite Calorias: "/>
+                    <Entry Text="{Binding RegCalorias}"
+                       Placeholder="2000"/>
+
+                    <ActivityIndicator
+                    IsVisible="{Binding IsCarregando}"
+                    IsRunning="{Binding IsCarregando}"/>
+
+                    <Button Text="Registrar"
+                        x:Name="regRegistrarBtn"
+                        IsVisible="{Binding IsCarregando, Converter={StaticResource boolConverter}}"
+                        Command="{Binding RegistrarCommand}"/>
+                    
+                </StackLayout>
+                
+            </ScrollView>
+        </ContentPage>
+
+    </TabbedPage.Children>
+    
+</TabbedPage>
