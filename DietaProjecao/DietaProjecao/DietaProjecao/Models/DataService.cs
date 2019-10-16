@@ -137,9 +137,10 @@ namespace DietaProjecao.Models
         internal async Task DeletarAlimentoAsync(Alimento alimento)
         {
             var filter = Builders<Usuario>.Filter.Eq(x => x.Id, UsuarioLogado.Id);
-            var update = Builders<Usuario>.Update.PullFilter(x => x.Alimentos, Builders<int>.Filter.Eq("", alimento.id));
 
-            await Usuarios.FindOneAndUpdateAsync(filter, update);
+            UsuarioLogado.Alimentos.Remove(alimento.id);
+
+            await Usuarios.ReplaceOneAsync(filter, UsuarioLogado);
 
             await RefreshUsuarioLogado();
         }
